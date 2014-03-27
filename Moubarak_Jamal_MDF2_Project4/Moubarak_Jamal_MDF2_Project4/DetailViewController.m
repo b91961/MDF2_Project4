@@ -29,6 +29,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    titleLabel.text = self.currentMovie.movieName;
+    secondaryLabel.text = self.currentMovie.movieTime1;
+    information2Label.text = self.currentMovie.movieTime2;
+    information3Label.text = self.currentMovie.movieTime3;
+    imageLabel.image = self.currentMovie.posters;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

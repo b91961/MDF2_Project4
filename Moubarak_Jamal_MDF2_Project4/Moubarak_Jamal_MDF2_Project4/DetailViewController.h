@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieInfo.h"
 
 @interface DetailViewController : UIViewController
+{
+    IBOutlet UILabel *titleLabel;
+    IBOutlet UILabel *secondaryLabel;
+    IBOutlet UILabel *information2Label;
+    IBOutlet UILabel *information3Label;
+    IBOutlet UIImageView *imageLabel;
+}
 
+@property (nonatomic, strong)MovieInfo *currentMovie;
 @end

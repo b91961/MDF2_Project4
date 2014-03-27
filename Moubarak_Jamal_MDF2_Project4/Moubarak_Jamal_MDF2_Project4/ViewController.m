@@ -173,6 +173,52 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // are we in delete mode?
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        // remove the data from the data array.
+        [movieArray removeObjectAtIndex:indexPath.row];
+        
+        // remove the line item from the tableView.
+        [tableView deleteRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    //set number of rows to the amount of objects in the array.
+    return [movieArray count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell"];
+    if (cell != nil)
+    {
+        MovieInfo *currentMovie = [movieArray objectAtIndex:indexPath.row];
+        [cell refreshCellWithInfo:currentMovie.movieName secondString:currentMovie.movieTime1 thirdString:currentMovie.movieTime2 fourthString:currentMovie.movieTime3 cellImage:currentMovie.posters];
+    }
+    return cell;
+}
+
+// Go to Detail view.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    DetailViewController *detailViewController = segue.destinationViewController;
+    if (detailViewController != nil)
+    {
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [myTableView indexPathForCell:cell];
+        
+        // get the string from the array based on the item in the table view we clicked on.
+        MovieInfo *currentMovie = [movieArray objectAtIndex:indexPath.row];
+        
+        detailViewController.currentMovie = currentMovie;
+    }
+}
+
 // Unwind Button
 -(IBAction)done:(UIStoryboardSegue*)segue
 {

@@ -19,16 +19,21 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    // Initialization code
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
+}
+
+-(void)refreshCellWithInfo:(NSString*)firstString secondString:(NSString*) secondString thirdString:(NSString*) thirdString fourthString:(NSString*) fourthString cellImage:(UIImage*)cellImage
+{
+    movieLabel.text = firstString;
+    time1Label.text = secondString;
+    time2Label.text = thirdString;
+    time3Label.text = fourthString;
+    
+    myImageView.image = cellImage;
 }
 
 @end
