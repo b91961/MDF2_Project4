@@ -19,4 +19,7 @@
 }
 
 @property (nonatomic, strong)MovieInfo *currentMovie;
+
+-(IBAction)onClose:(UIButton*)button;
+
 @end

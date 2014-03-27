@@ -183,8 +183,20 @@
     theater3.theaterImage = [UIImage imageNamed:@"fallenTimbers.jpg"];
     theater3.theaterLocation = @"2300 Village Dr, Maumee, OH 43537";
     
-    //create an array with the custom objects
-    theaterArray = [[NSMutableArray alloc] initWithObjects:theater1, theater2, theater3, nil];
+    TheaterInfo *tInfo = [TheaterInfo sharedTheaterInfo];
+    if (tInfo != nil)
+    {
+        theaterArray = tInfo.theaterArray;
+        if (theaterArray != nil)
+        {
+            [theaterArray addObject:theater1];
+            [theaterArray addObject:theater2];
+            [theaterArray addObject:theater3];
+        }
+    }
+    
+    theaterInformation = [TheaterInfo sharedTheaterInfo];
+    locTheaterArray = theaterInformation.theaterArray;
     
     [super viewDidLoad];
     
@@ -216,13 +228,13 @@
 {
     UIView *theaterView = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 60)];
     theaterView.backgroundColor = [UIColor lightGrayColor];
-    UIImage *myTheaterImage = [[theaterArray objectAtIndex:section] theaterImage];
+    UIImage *myTheaterImage = [[locTheaterArray objectAtIndex:section] theaterImage];
     UILabel *theaterLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     theaterLabel.font = [UIFont boldSystemFontOfSize:20];
-    theaterLabel.frame = CGRectMake(125, 10, 400, 30);
-    theaterLabel.text = [NSString stringWithFormat:@"%@", [[theaterArray objectAtIndex:section] theaterName]];
+    theaterLabel.frame = CGRectMake(125, 10, 200, 30);
+    theaterLabel.text = [NSString stringWithFormat:@"%@", [[locTheaterArray objectAtIndex:section] theaterName]];
     UILabel *address = [[UILabel alloc] initWithFrame:CGRectZero];
-    address.text = [NSString stringWithFormat:@"%@", [[theaterArray objectAtIndex:section] theaterLocation]];
+    address.text = [NSString stringWithFormat:@"%@", [[locTheaterArray objectAtIndex:section] theaterLocation]];
     address.font = [UIFont systemFontOfSize:15];
     address.frame = CGRectMake(125, 40, 165, 40);
     address.numberOfLines = 2;
@@ -289,12 +301,6 @@
         
         detailViewController.currentMovie = currentMovie;
     }
-}
-
-// Unwind Button
--(IBAction)done:(UIStoryboardSegue*)segue
-{
-    
 }
 
 @end

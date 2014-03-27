@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "MovieViewController.h"
 
 @interface DetailViewController ()
 
@@ -55,10 +56,22 @@
 }
 */
 
-// Unwind Button
--(IBAction)movieDone:(UIStoryboardSegue*)segue
+// Go to Detail view.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    if ([segue.identifier isEqualToString:@"movieView"])
+    {
+        MovieViewController *movieViewController = segue.destinationViewController;
+        if (movieViewController != nil)
+        {
+            movieViewController.playMovie = _currentMovie;
+        }
+    }
+}
+
+-(IBAction)onClose:(UIButton*)button
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

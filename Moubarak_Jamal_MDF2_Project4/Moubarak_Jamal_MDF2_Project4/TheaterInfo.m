@@ -10,7 +10,27 @@
 
 @implementation TheaterInfo
 
-@synthesize theaterName, theaterImage, theaterLocation;
+@synthesize theaterArray, theaterName, theaterImage, theaterLocation;
+
+static TheaterInfo* _sharedTheaterInfo = nil;
+
++(TheaterInfo*)sharedTheaterInfo
+{
+    if (!_sharedTheaterInfo)
+    {
+        _sharedTheaterInfo = [[self alloc] init];
+    }
+    return _sharedTheaterInfo;
+}
+
+-(id)init
+{
+    if ((self = [super init]))
+    {
+        theaterArray = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
 
 -(id)initWithTheatre:(NSString*)theater image:(UIImage *)image location:(NSString*)location
 {

@@ -14,11 +14,14 @@
 {
     MovieInfo *movieInformation;
     MovieInfo *currentMovie;
+    TheaterInfo *theaterInformation;
+    TheaterInfo *currentTheater;
     
     IBOutlet UITableView *myTableView;
     NSMutableArray *movieArray;
     NSMutableArray *locMovieArray;
     NSMutableArray *theaterArray;
+    NSMutableArray *locTheaterArray;
 }
 
 @end

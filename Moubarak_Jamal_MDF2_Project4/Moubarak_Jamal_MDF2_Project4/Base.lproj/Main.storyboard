@@ -100,6 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="374" y="200"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="C6g-Zv-PoO">
@@ -126,6 +127,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="onClose:" destination="Qre-UJ-11h" eventType="touchUpInside" id="jrJ-JP-Yg4"/>
                                                     <segue destination="cUG-MZ-0Ow" kind="unwind" unwindAction="done:" id="CUI-al-GmP"/>
                                                 </connections>
                                             </button>
@@ -152,7 +154,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="33A-5W-fUn" kind="modal" id="Rgy-Dg-zjQ"/>
+                                    <segue destination="33A-5W-fUn" kind="modal" identifier="movieView" id="Rgy-Dg-zjQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pU-Lf-F76">
@@ -223,6 +225,7 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
+                                                    <action selector="onClick:" destination="33A-5W-fUn" eventType="touchUpInside" id="oAy-1r-u29"/>
                                                     <segue destination="8h8-dc-do3" kind="unwind" unwindAction="movieDone:" id="mRQ-Yk-0m1"/>
                                                 </connections>
                                             </button>
@@ -231,12 +234,12 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvb-GN-p4I">
-                                <rect key="frame" x="0.0" y="113" width="320" height="236"/>
+                                <rect key="frame" x="0.0" y="113" width="320" height="230"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAD-92-WDp">
-                                <rect key="frame" x="59" y="357" width="35" height="30"/>
+                                <rect key="frame" x="56" y="356" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -246,7 +249,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOF-SI-twP">
-                                <rect key="frame" x="222" y="357" width="35" height="30"/>
+                                <rect key="frame" x="219" y="356" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

@@ -19,13 +19,14 @@
     IBOutlet UILabel *name;
     IBOutlet UIView *movie;
     MPMoviePlayerController *moviePlayer;
-    NSURL *url;
+    NSString *url;
     NSString *title;
 }
 
-@property (strong, nonatomic) MovieInfo *currentMovie;
+@property (strong, nonatomic) MovieInfo *playMovie;
 
 -(IBAction)onPlay:(UIButton*)button;
 -(IBAction)onStop:(UIButton*)button;
+-(IBAction)onClick:(UIButton*)button;
 
 @end

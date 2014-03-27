@@ -7,6 +7,7 @@
 //
 
 #import "MovieViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MovieViewController ()
 
@@ -25,17 +26,10 @@
 
 - (void)viewDidLoad
 {
-    movieInformation = [MovieInfo sharedMovieInfo];
-    locMovieArray = movieInformation.movieArray;
+    title = [NSString stringWithFormat:@"%@", [_playMovie movieName]];
+    url = [NSString stringWithFormat:@"%@", [_playMovie movieURL]];
     
-    //loop through data from custom object
-    for (int i=0; i< [locMovieArray count]; i++)
-    {
-        title = [[locMovieArray objectAtIndex:i]movieName];
-        url = [[locMovieArray objectAtIndex:i]movieURL];
-        
-        self->name.text = title;
-    }
+    self->name.text = title;
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -76,6 +70,11 @@
 -(IBAction)onStop:(UIButton*)button
 {
     [moviePlayer stop];
+}
+
+-(IBAction)onClick:(UIButton*)button
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
