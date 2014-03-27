@@ -141,8 +141,32 @@
     movie15.movieTime3 = @"8:20";
     movie15.posters = [UIImage imageNamed:@"wolfPoster.jpg"];
     
-    //create an array with the custom objects
-    movieArray = [[NSMutableArray alloc] initWithObjects:movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10, movie11, movie12, movie13, movie14, movie15, nil];
+    MovieInfo *info = [MovieInfo sharedMovieInfo];
+    if (info != nil)
+    {
+        movieArray = info.movieArray;
+        if (movieArray != nil)
+        {
+            [movieArray addObject:movie1];
+            [movieArray addObject:movie2];
+            [movieArray addObject:movie3];
+            [movieArray addObject:movie4];
+            [movieArray addObject:movie5];
+            [movieArray addObject:movie6];
+            [movieArray addObject:movie7];
+            [movieArray addObject:movie8];
+            [movieArray addObject:movie9];
+            [movieArray addObject:movie10];
+            [movieArray addObject:movie11];
+            [movieArray addObject:movie12];
+            [movieArray addObject:movie13];
+            [movieArray addObject:movie14];
+            [movieArray addObject:movie15];
+        }
+    }
+    
+    movieInformation = [MovieInfo sharedMovieInfo];
+    locMovieArray = movieInformation.movieArray;
     
     TheaterInfo *theater1 = [[TheaterInfo alloc] init];
     theater1.theaterName = @"Franklin Park 16";
@@ -155,9 +179,9 @@
     theater2.theaterLocation = @"2005 Hollenbeck Dr, Perrysburg, OH 43551";
     
     TheaterInfo *theater3 = [[TheaterInfo alloc] init];
-    theater3.theaterName = @"Fallen Timbers 14 + Xtreme";
+    theater3.theaterName = @"Fallen Timbers 14";
     theater3.theaterImage = [UIImage imageNamed:@"fallenTimbers.jpg"];
-    theater3.theaterLocation = @"2300 Village Dr, West Suite 1700, Maumee, OH 43537";
+    theater3.theaterLocation = @"2300 Village Dr, Maumee, OH 43537";
     
     //create an array with the custom objects
     theaterArray = [[NSMutableArray alloc] initWithObjects:theater1, theater2, theater3, nil];
@@ -167,29 +191,59 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [myTableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    // are we in delete mode?
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        // remove the data from the data array.
-        [movieArray removeObjectAtIndex:indexPath.row];
-        
-        // remove the line item from the tableView.
-        [tableView deleteRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
+    return [theaterArray count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 100.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+{
+    UIView *theaterView = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 60)];
+    theaterView.backgroundColor = [UIColor lightGrayColor];
+    UIImage *myTheaterImage = [[theaterArray objectAtIndex:section] theaterImage];
+    UILabel *theaterLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    theaterLabel.font = [UIFont boldSystemFontOfSize:20];
+    theaterLabel.frame = CGRectMake(125, 10, 400, 30);
+    theaterLabel.text = [NSString stringWithFormat:@"%@", [[theaterArray objectAtIndex:section] theaterName]];
+    UILabel *address = [[UILabel alloc] initWithFrame:CGRectZero];
+    address.text = [NSString stringWithFormat:@"%@", [[theaterArray objectAtIndex:section] theaterLocation]];
+    address.font = [UIFont systemFontOfSize:15];
+    address.frame = CGRectMake(125, 40, 165, 40);
+    address.numberOfLines = 2;
+    UIImageView *theaterImageView = [[UIImageView alloc] initWithImage:myTheaterImage];
+    theaterImageView.frame = CGRectMake(20, 10, 100, 80);
+    [theaterView addSubview:theaterImageView];
+    [theaterView addSubview:theaterLabel];
+    [theaterView addSubview:address];
+    return theaterView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //set number of rows to the amount of objects in the array.
-    return [movieArray count];
+    NSLog(@"%@", [locMovieArray description]);
+    switch (section) {
+        case 0: return 5; break;
+        case 1: return 5; break;
+        case 2: return 5; break;
+        default: break;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,7 +251,16 @@
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell"];
     if (cell != nil)
     {
-        MovieInfo *currentMovie = [movieArray objectAtIndex:indexPath.row];
+        int offset = 0;
+        switch (indexPath.section)
+        {
+            case 0: offset=0; break;
+            case 1: offset=5; break;
+            case 2: offset=10; break;
+                break;
+        }
+        
+        currentMovie = [locMovieArray objectAtIndex:indexPath.row + offset];
         [cell refreshCellWithInfo:currentMovie.movieName secondString:currentMovie.movieTime1 thirdString:currentMovie.movieTime2 fourthString:currentMovie.movieTime3 cellImage:currentMovie.posters];
     }
     return cell;
@@ -212,8 +275,17 @@
         UITableViewCell *cell = (UITableViewCell*)sender;
         NSIndexPath *indexPath = [myTableView indexPathForCell:cell];
         
+        int offset = 0;
+        switch (indexPath.section)
+        {
+            case 0: offset=0; break;
+            case 1: offset=5; break;
+            case 2: offset=10; break;
+                break;
+        }
+        
         // get the string from the array based on the item in the table view we clicked on.
-        MovieInfo *currentMovie = [movieArray objectAtIndex:indexPath.row];
+        currentMovie = [locMovieArray objectAtIndex:indexPath.row + offset];
         
         detailViewController.currentMovie = currentMovie;
     }

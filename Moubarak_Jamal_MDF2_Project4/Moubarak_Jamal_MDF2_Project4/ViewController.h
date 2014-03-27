@@ -12,8 +12,12 @@
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
+    MovieInfo *movieInformation;
+    MovieInfo *currentMovie;
+    
     IBOutlet UITableView *myTableView;
     NSMutableArray *movieArray;
+    NSMutableArray *locMovieArray;
     NSMutableArray *theaterArray;
 }
 

@@ -25,8 +25,20 @@
 
 - (void)viewDidLoad
 {
+    movieInformation = [MovieInfo sharedMovieInfo];
+    locMovieArray = movieInformation.movieArray;
+    
+    //loop through data from custom object
+    for (int i=0; i< [locMovieArray count]; i++)
+    {
+        title = [[locMovieArray objectAtIndex:i]movieName];
+        url = [[locMovieArray objectAtIndex:i]movieURL];
+        
+        self->name.text = title;
+    }
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,5 +57,25 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(IBAction)onPlay:(UIButton*)button
+{
+    NSURL *myURL = [NSURL URLWithString:url];
+    moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:myURL];
+    
+    if (moviePlayer != nil)
+    {
+        [movie addSubview:moviePlayer.view];
+        moviePlayer.view.frame = CGRectMake(0.0f, 0.0f, movie.frame.size.width, movie.frame.size.height);
+        [moviePlayer prepareToPlay];
+        moviePlayer.fullscreen = false;
+        [moviePlayer play];
+    }
+}
+
+-(IBAction)onStop:(UIButton*)button
+{
+    [moviePlayer stop];
+}
 
 @end

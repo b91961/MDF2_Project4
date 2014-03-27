@@ -75,7 +75,7 @@
                                             <outlet property="time1Label" destination="3OM-5B-eUi" id="Bmf-jK-gpf"/>
                                             <outlet property="time2Label" destination="hOM-eR-rWh" id="JwW-O9-kQm"/>
                                             <outlet property="time3Label" destination="TDj-rG-L10" id="UAR-lj-eRU"/>
-                                            <segue destination="Qre-UJ-11h" kind="modal" id="UGi-2V-fnx"/>
+                                            <segue destination="Qre-UJ-11h" kind="modal" identifier="detail" id="UGi-2V-fnx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="837" y="200"/>
         </scene>
-        <!--Player View Controller-->
+        <!--Movie View Controller-->
         <scene sceneID="mQV-Q1-lfA">
             <objects>
-                <viewController id="33A-5W-fUn" customClass="PlayerViewController" sceneMemberID="viewController">
+                <viewController id="33A-5W-fUn" customClass="MovieViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NWa-Uc-an5"/>
                         <viewControllerLayoutGuide type="bottom" id="94W-EI-WG9"/>
@@ -241,6 +241,9 @@
                                 <state key="normal" title="Play">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onPlay:" destination="33A-5W-fUn" eventType="touchUpInside" id="fxy-wx-W6e"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOF-SI-twP">
                                 <rect key="frame" x="222" y="357" width="35" height="30"/>
@@ -248,6 +251,9 @@
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onStop:" destination="33A-5W-fUn" eventType="touchUpInside" id="Gwc-QJ-04n"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Movie" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Uan-RA-5ip">
                                 <rect key="frame" x="20" y="70" width="280" height="44"/>
@@ -259,6 +265,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="movie" destination="Kvb-GN-p4I" id="c61-WH-lJw"/>
+                        <outlet property="name" destination="Uan-RA-5ip" id="S8F-oV-Hra"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p14-Tb-oYp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="8h8-dc-do3" userLabel="Exit" sceneMemberID="exit"/>

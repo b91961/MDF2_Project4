@@ -10,6 +10,8 @@
 
 @interface MovieInfo : NSObject
 {
+    NSMutableArray *movieArray;
+    
     NSString *movieName;
     NSURL *movieURL;
     NSString *movieTime1;
@@ -18,8 +20,11 @@
     UIImage *posters;
 }
 
--(id)initWithMovie:(NSString*)name trailer:(NSURL *)trailer showtime1:(NSString*)showtime1 showtime2:(NSString*)showtime2 showtime3:(NSString*)showtime3 movieImages:(UIImage*)movieImages;
++(MovieInfo*)sharedMovieInfo;
 
+-(id)initWithMovie:(NSString*)name video:(NSURL *)video showtime1:(NSString*)showtime1 showtime2:(NSString*)showtime2 showtime3:(NSString*)showtime3 movieImages:(UIImage*)movieImages;
+
+@property (nonatomic, strong)NSMutableArray *movieArray;
 @property(nonatomic, strong) NSString *movieName;
 @property(nonatomic, strong) NSURL *movieURL;
 @property(nonatomic, strong) NSString *movieTime1;

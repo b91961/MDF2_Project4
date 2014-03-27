@@ -7,7 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieInfo.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MovieViewController : UIViewController
+{
+    MovieInfo *movieInformation;
+    NSMutableArray *movieArray;
+    NSMutableArray *locMovieArray;
+    
+    IBOutlet UILabel *name;
+    IBOutlet UIView *movie;
+    MPMoviePlayerController *moviePlayer;
+    NSURL *url;
+    NSString *title;
+}
+
+@property (strong, nonatomic) MovieInfo *currentMovie;
+
+-(IBAction)onPlay:(UIButton*)button;
+-(IBAction)onStop:(UIButton*)button;
 
 @end
